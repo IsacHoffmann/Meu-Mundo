@@ -1,0 +1,67 @@
+---
+layout: default
+title: Perguntas e Respostas
+---
+
+<h1>Perguntas e Respostas</h1>
+
+<!-- Formulário para enviar perguntas -->
+<h2>Faça sua pergunta</h2>
+<form id="pergunta-form">
+  <label for="nome">Seu Nome:</label>
+  <input type="text" id="nome" name="nome" required>
+  <br><br>
+  <label for="pergunta">Sua Pergunta:</label>
+  <textarea id="pergunta" name="pergunta" required></textarea>
+  <br><br>
+  <input type="submit" value="Enviar Pergunta">
+</form>
+
+<h2>Perguntas Recentes</h2>
+<div id="perguntas-respostas">
+  <!-- Aqui serão exibidas as perguntas e respostas -->
+</div>
+
+<script>
+// Função para lidar com o envio do formulário
+document.getElementById('pergunta-form').addEventListener('submit', function(e) {
+  e.preventDefault(); // Previne o envio padrão do formulário
+
+  const nome = document.getElementById('nome').value;
+  const pergunta = document.getElementById('pergunta').value;
+
+  // Adiciona a pergunta e a resposta ao DOM
+  const div = document.createElement('div');
+  div.className = 'pergunta-resposta';
+  div.innerHTML = `<strong>${nome} perguntou:</strong> <p>${pergunta}</p>
+                   <strong>Resposta de você:</strong> <p>(Digite sua resposta aqui)</p>
+                   <button onclick="adicionarResposta(this)">Adicionar Resposta</button>`;
+  
+  document.getElementById('perguntas-respostas').prepend(div);
+
+  // Limpa o formulário
+  document.getElementById('pergunta-form').reset();
+});
+
+// Função para adicionar resposta
+function adicionarResposta(button) {
+  const resposta = prompt("Digite sua resposta:");
+  if (resposta) {
+    const div = button.parentElement;
+    div.innerHTML += `<strong>Resposta:</strong> <p>${resposta}</p>`;
+  }
+}
+</script>
+
+<style>
+/* Estilo básico */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.pergunta-resposta {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+</style>
